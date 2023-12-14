@@ -12,9 +12,3 @@ jobs: #Начало секции джобов
     steps: #Начало секции шагов
         - name: Create zip archive #Название шага
           run: zip -r release.zip . #Команда, которая будет выполнена в терминале 
-  
-  lsecho:
-    runs-on: ubuntu-latest
-    steps: #Начало секции шагов
-        - name: check #Название шага
-          run: echo "ls -la" #Команда, которая будет выполнена в терминале 
