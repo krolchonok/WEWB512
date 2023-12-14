@@ -9,5 +9,6 @@ jobs:
       - name: Zip Folder
         run: |
           cd ../ # I added this
+          ls
           rm -rf WEWB512.zip
           zip -r WEWB512.zip WEWB512 -x ".git/*" ".github/*"
