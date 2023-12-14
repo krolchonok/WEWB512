@@ -1,0 +1,13 @@
+name: Zip repository and put on S3
+on: [workflow_dispatch]
+
+jobs:
+  zip-n-push:
+    name: Zip and Push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Zip Folder
+        run: |
+          cd ../ # I added this
+          rm -rf WEWB512.zip
+          zip -r WEWB512.zip WEWB512 -x ".git/*" ".github/*"
