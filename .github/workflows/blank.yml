@@ -1,23 +1,45 @@
-name: Create Archive
-on: [push]
+name: Create Release
+
+on:
+  push:
+    branches:
+      - main  # Замените на имя вашей основной ветки
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@master
-    - name: Archive Release
-      uses: thedoctor0/zip-release@0.7.5
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Create Archive
+      run: |
+        # Создание архива из всех файлов в репозитории
+        zip -r release.zip .
+
+    - name: Upload Release
+      uses: actions/upload-artifact@v2
       with:
-        type: 'zip'
-        filename: 'release.zip'
-        exclusions: '*.git* /*node_modules/* .editorconfig'
-  release:
+        name: release
+        path: release.zip
+
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-    - uses: actions/checkout@v3
-    - uses: ncipollo/release-action@v1
+    - name: Download Release
+      uses: actions/download-artifact@v2
       with:
-        artifacts: "release.zip,foo/*.txt"
-        bodyFile: "body.md"
+        name: release
+        path: .
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release.zip
+        tag_name: ${{ github.sha }}
+        release_name: Release ${{ github.sha }}
+        body: |
+          Release ${{ github.sha }}
