@@ -1,29 +1,13 @@
-name: Create Release
-
-on:
-  push:
-    branches:
-      - main  # Или замени на имя своей основной ветки
-
+name: Create Archive
+on: [push]
 jobs:
-  create_release:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Zip all files
-      run: |
-        zip -r release.zip .
-
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - uses: actions/checkout@main
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.5
       with:
-        files: release.zip
-        token: ${{ secrets.GITHUB_TOKEN }}
-        release_name: Release ${{ github.run_number }}
-        tag_name: v${{ github.run_number }}  # Устанавливаем тег для релиза
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        type: 'zip'
+        filename: 'release.zip'
+        exclusions: '*.git* /*node_modules/* .editorconfig'
