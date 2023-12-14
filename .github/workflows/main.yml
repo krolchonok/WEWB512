@@ -3,7 +3,7 @@ name: Create Release
 on:
   push:
     branches:
-      - main 
+      - main  # Или замени на имя своей основной ветки
 
 jobs:
   create_release:
@@ -16,13 +16,11 @@ jobs:
     - name: Zip all files
       run: |
         zip -r release.zip .
-      
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       with:
         files: release.zip
-        token: ${{ secrets.GITHUB_TOKEN }}
-        release_name: Release ${{ github.run_number }}
-        draft: false
-        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
