@@ -1,5 +1,7 @@
 name: Zip And Release
-on: workflow_dispatch 
+on: 
+  push:
+    branches: '**'
 
 jobs: 
   zip: 
