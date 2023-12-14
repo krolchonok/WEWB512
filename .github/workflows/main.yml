@@ -22,5 +22,8 @@ jobs:
       uses: actions/create-release@v1
       with:
         files: release.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
+        release_name: Release ${{ github.run_number }}
+        tag_name: v${{ github.run_number }}  # Устанавливаем тег для релиза
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
