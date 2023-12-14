@@ -7,7 +7,7 @@ jobs: #Начало секции джобов
     
     steps: #Начало секции шагов
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Create zip archive #Название шага
         run: zip -r release.zip . #Команда, которая будет выполнена в терминале 
