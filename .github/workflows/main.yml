@@ -1,23 +1,27 @@
 name: Zip And Release
-on: workflow_dispatch #Триггер, который будет вызывать workflow
+on: workflow_dispatch 
 
-jobs: #Начало секции джобов
-  zip: #Название джоба
+jobs: 
+  zip: 
     permissions: write-all
-    runs-on: ubuntu-latest #Среда выполнения джоба
-    steps: #Начало секции шагов
+    runs-on: ubuntu-latest 
+    steps: 
         - name: Checkout repository
           uses: actions/checkout@v3
           
-        - name: Create zip archive #Название шага
-          run: zip -r release.zip . #Команда, которая будет выполнена в терминале 
+        - name: Create zip archive 
+          run: zip -r release.zip . -x .git/ .github/
+          
+        - name: Get current date
+          id: date
+          run: echo "::set-output name=date::$(date +'%H:%M %d-%m-%Y')"
           
         - name: Upload binaries to release
           uses: svenstaro/upload-release-action@v2
           with:
             repo_token: ${{ secrets.GITHUB_TOKEN }}
             file: release.zip
-            asset_name: mything
+            asset_name: release_${{ steps.date.outputs.date }}.zip
             tag: ${{ github.ref }}
             overwrite: true
-            body: "This is my release text"
+            body: ""
