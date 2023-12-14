@@ -9,6 +9,6 @@ jobs: #Начало секции джобов
       - name: Checkout repository
         uses: actions/checkout@v2
         
-      - name: Print hello #Название шага
+      - name: Create zip archive #Название шага
         run: zip -r release.zip . #Команда, которая будет выполнена в терминале 
   
