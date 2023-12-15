@@ -1,5 +1,5 @@
 @echo off
-set __COMPAT_LAYER=WinXPSp2
+set __COMPAT_LAYER=Win95
 echo hello, what you want?
 echo ru - launch with Russian designations
 echo en - launch with Pendoskion designations
